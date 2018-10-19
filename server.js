@@ -2,7 +2,7 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
-    
+
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
@@ -24,7 +24,7 @@ if (mongoURL == null) {
     mongoPassword = process.env[mongoServiceName + '_PASSWORD'];
     mongoUser = process.env[mongoServiceName + '_USER'];
 
-  // If using env vars from secret from service binding  
+  // If using env vars from secret from service binding
   } else if (process.env.database_name) {
     mongoDatabase = process.env.database_name;
     mongoPassword = process.env.password;
@@ -119,7 +119,9 @@ initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
 });
 
-app.listen(port, ip);
-console.log('Server running on http://%s:%s', ip, port);
+app.listen(port, ip, function(){
+  console.log('Server running on http://%s:%s', ip, port);
+
+});
 
 module.exports = app ;
